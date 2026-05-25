@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "albums",
+  "info": {
+    "singularName": "album",
+    "pluralName": "albums",
+    "displayName": "Album",
+    "description": "Albumele muzicale ale artistului"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginsOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true,
+      "maxLength": 200
+    },
+    "description": {
+      "type": "text"
+    },
+    "coverImage": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false
+    },
+    "genre": {
+      "type": "string",
+      "maxLength": 100
+    },
+    "releaseDate": {
+      "type": "date"
+    },
+    "streamingUrl": {
+      "type": "string"
+    },
+    "tracks": {
+      "type": "integer"
+    },
+    "duration": {
+      "type": "string"
+    }
+  }
+}

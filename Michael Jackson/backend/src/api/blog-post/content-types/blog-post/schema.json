@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "blog_posts",
+  "info": {
+    "singularName": "blog-post",
+    "pluralName": "blog-posts",
+    "displayName": "Articol Blog",
+    "description": "Știri și articole de blog"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginsOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "content": {
+      "type": "richtext",
+      "required": true
+    },
+    "image": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": ["Culise", "Colaborari", "Vesti", "Tehnic", "Altele"],
+      "default": "Vesti"
+    },
+    "date": {
+      "type": "date"
+    },
+    "readTime": {
+      "type": "string"
+    },
+    "author": {
+      "type": "string",
+      "default": "Aurora Negra"
+    }
+  }
+}

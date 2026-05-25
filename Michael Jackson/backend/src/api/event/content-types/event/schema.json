@@ -1,0 +1,49 @@
+{
+  "kind": "collectionType",
+  "collectionName": "events",
+  "info": {
+    "singularName": "event",
+    "pluralName": "events",
+    "displayName": "Eveniment",
+    "description": "Concerte și evenimente live"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginsOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "location": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "date": {
+      "type": "datetime",
+      "required": true
+    },
+    "image": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false
+    },
+    "category": {
+      "type": "string"
+    },
+    "price": {
+      "type": "string"
+    },
+    "ticketsUrl": {
+      "type": "string"
+    },
+    "isFeatured": {
+      "type": "boolean",
+      "default": false
+    }
+  }
+}

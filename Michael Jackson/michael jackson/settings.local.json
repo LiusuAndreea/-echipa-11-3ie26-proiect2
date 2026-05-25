@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "additionalDirectories": [
+      "C:\\aurora-negra\\frontend\\src\\styles",
+      "C:\\aurora-negra\\frontend\\src\\components"
+    ]
+  }
+}

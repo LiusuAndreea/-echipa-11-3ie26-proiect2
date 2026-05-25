@@ -1,0 +1,36 @@
+{
+  "kind": "singleType",
+  "collectionName": "about_artists",
+  "info": {
+    "singularName": "about-artist",
+    "pluralName": "about-artists",
+    "displayName": "Despre Artist",
+    "description": "Informații despre artist — single type"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginsOptions": {},
+  "attributes": {
+    "biography": {
+      "type": "richtext"
+    },
+    "skills": {
+      "type": "json"
+    },
+    "instruments": {
+      "type": "json"
+    },
+    "achievements": {
+      "type": "json"
+    },
+    "artistPhoto": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false
+    },
+    "shortBio": {
+      "type": "text"
+    }
+  }
+}

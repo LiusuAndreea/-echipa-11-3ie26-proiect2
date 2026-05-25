@@ -1,4 +1,3 @@
-# -echipa-11-3ie26-proiect2
 # Michael Jackson — Music Artist Portfolio
 
 > Proiect 2 · Echipa 11 · Grupa 3IE26  
@@ -36,17 +35,6 @@
 
 ---
 
-## Link-uri Proiect
-
-| Resursă | Link |
-|---------|------|
-| GitHub Repository | `https://github.com/[USERNAME]/echipa-11-3ie26-proiect2` |
-| Netlify (site live) | `https://[NUME-PROIECT].netlify.app` |
-| Strapi Cloud | `https://[NUME-PROIECT].strapiapp.com` |
-| Temă tweakcn.com | `https://tweakcn.com/editor/theme?theme=[ID-TEMA]` |
-
----
-
 ## Pagini Implementate
 
 | Pagină | Rută | Layout | Descriere |
@@ -56,61 +44,6 @@
 | Albume | `/albume` | Grid cu filtru sticky | Grid albume cu filtre genre, sortare, showcase album principal |
 | Evenimente | `/evenimente` | 2 coloane + sidebar | Featured event banner, concerte tribut, blog cu categorii, newsletter |
 | Contact | `/contact` | Split 3/5 + 2/5 | Formular cu validare, info contact, hartă Google Maps, FAQ accordion |
-
----
-
-## Cerințe Tehnice Bifate
-
-### Structură & Tehnologii
-- [x] React + TailwindCSS (fără alte framework-uri UI)
-- [x] React Router DOM cu 5 rute distincte
-- [x] Axios pentru apeluri API către Strapi
-- [x] Strapi Headless CMS cu 5 collection types
-- [x] Deploy config Netlify (`netlify.toml`)
-- [x] GitHub `.gitignore` configurat
-
-### UI/UX
-- [x] Meniu desktop sticky (rămâne fix la scroll cu blur effect)
-- [x] Meniu mobil hamburger + offcanvas (slide din dreapta, overlay cu blur)
-- [x] Dark/Light Mode toggle cu persistență `localStorage`
-- [x] Design responsive (mobile, tablet, desktop, ultra-wide)
-- [x] 3 fonturi web: **Poppins** (sans), **Playfair Display** (heading), **JetBrains Mono** (mono)
-- [x] Animații CSS (fade-in, slide-up, blob, float) via Tailwind keyframes
-
-### Componente (16 componente)
-- [x] Navbar + MobileMenu (hamburger offcanvas)
-- [x] ThemeToggle (dark/light)
-- [x] HeroSection (parallax blobs, animații CSS)
-- [x] Footer cu logo, navigare, copyright
-- [x] AlbumCard (hover lift, overlay play)
-- [x] EventCard (imagine cu overlay, badge preț)
-- [x] ContactForm (validare câmpuri, integrare Strapi)
-- [x] SectionTitle (decorator lines, animat)
-- [x] Button (variante primary/outline)
-- [x] Loader + SkeletonCard + PageLoader
-- [x] ErrorMessage
-- [x] SocialLinks (5 platforme)
-- [x] TestimonialCard (rating stele, avatar)
-- [x] Timeline (linie verticală gradient)
-- [x] MusicPlayerUI (player real iTunes 30s, playlist)
-- [x] ScrollProgress (bara progress scroll)
-
-### Elemente Tipice de Site
-- [x] Logo (simbol ♛ + text "Michael Jackson")
-- [x] Navigare completă în header și footer
-- [x] Copyright în footer
-- [x] Social links (Spotify, YouTube, Instagram, TikTok, Apple Music)
-- [x] Meta tags SEO în `index.html`
-- [x] Custom cursor subtil
-- [x] Scroll progress indicator
-
-### Backend Strapi
-- [x] Schema: **Albums** (Collection Type)
-- [x] Schema: **Events** (Collection Type)
-- [x] Schema: **Blog Posts** (Collection Type)
-- [x] Schema: **Contact Messages** (Collection Type)
-- [x] Schema: **About Artist** (Single Type)
-- [x] Fallback la mock data când Strapi nu rulează
 
 ---
 
@@ -183,75 +116,6 @@ npm run develop
 
 ---
 
-## Configurare Strapi — Collections
-
-### Albums (Collection Type)
-| Câmp | Tip | Obligatoriu |
-|------|-----|-------------|
-| title | String | ✅ |
-| description | Text | — |
-| coverImage | Media (image) | — |
-| genre | String | — |
-| releaseDate | Date | — |
-| streamingUrl | String | — |
-| tracks | Integer | — |
-| duration | String | — |
-
-### Events (Collection Type)
-| Câmp | Tip | Obligatoriu |
-|------|-----|-------------|
-| title | String | ✅ |
-| location | String | ✅ |
-| description | Text | — |
-| date | DateTime | ✅ |
-| image | Media (image) | — |
-| category | String | — |
-| price | String | — |
-| ticketsUrl | String | — |
-| isFeatured | Boolean | — |
-
-### Blog Posts (Collection Type)
-| Câmp | Tip | Obligatoriu |
-|------|-----|-------------|
-| title | String | ✅ |
-| content | Rich Text | ✅ |
-| image | Media (image) | — |
-| category | Enumeration | — |
-| date | Date | — |
-| readTime | String | — |
-| author | String | — |
-
-### Contact Messages (Collection Type)
-| Câmp | Tip | Obligatoriu |
-|------|-----|-------------|
-| name | String | ✅ |
-| email | Email | ✅ |
-| message | Text | ✅ |
-
-### About Artist (Single Type)
-| Câmp | Tip |
-|------|-----|
-| biography | Rich Text |
-| skills | JSON |
-| instruments | JSON |
-| achievements | JSON |
-| artistPhoto | Media |
-| shortBio | Text |
-
----
-
-## Permisiuni Strapi (Public API)
-
-Strapi Admin → **Settings → Roles → Public**:
-
-- **Albums**: `find`, `findOne` ✅
-- **Events**: `find`, `findOne` ✅
-- **Blog Posts**: `find`, `findOne` ✅
-- **Contact Messages**: `create` ✅
-- **About Artist**: `find` ✅
-
----
-
 ## Deploy Netlify
 
 ### Pas 1 — Build local (test)
@@ -304,23 +168,6 @@ DATABASE_FILENAME=.tmp/data.db
 
 ---
 
-## Design System
-
-### Fonturi (setate în Tailwind + Google Fonts)
-| Font | Utilizare |
-|------|-----------|
-| **Poppins** | Text general, UI, butoane |
-| **Playfair Display** | Titluri, headings (font-heading) |
-| **JetBrains Mono** | Etichete, numere, cod (font-mono) |
-
-### Paletă de culori
-| Rol | Culoare | Hex |
-|-----|---------|-----|
-| Primary | Purple | `#9333ea` |
-| Accent 1 | Pink | `#ec4899` |
-| Accent 2 | Cyan | `#22d3ee` |
-| Background dark | Zinc 950 | `#09090b` |
-| Glass | White 4% | `rgba(255,255,255,0.04)` |
 
 ---
 
@@ -350,14 +197,4 @@ DATABASE_FILENAME=.tmp/data.db
 - Wikimedia Commons (fotografii Michael Jackson — domeniu public)
 
 ---
-
-## Colaborare Git
-
-Fiecare membru al echipei:
-1. A clonat repository-ul: `git clone https://github.com/[USERNAME]/echipa-11-3ie26-proiect2.git`
-2. A lucrat pe branch-ul propriu și a creat Pull Requests
-3. Liderul de echipă (Liusu Andreea) a adăugat colegii ca Collaborators în Settings > Collaborators
-
----
-
 *Proiect realizat în cadrul cursului de Web Design · Facultatea de Electronică și Telecomunicații · 2025–2026*
