@@ -1,5 +1,9 @@
 import React, { useState } from 'react'
-import { contactService } from '../services/api'
+
+const encode = (data) =>
+  Object.keys(data)
+    .map((k) => encodeURIComponent(k) + '=' + encodeURIComponent(data[k]))
+    .join('&')
 
 const initialForm = { name: '', email: '', subject: '', message: '' }
 
@@ -34,10 +38,16 @@ export default function ContactForm() {
     }
     setStatus('loading')
     try {
-      await contactService.send({
-        name: form.name.trim(),
-        email: form.email.trim(),
-        message: `${form.subject ? `[${form.subject}] ` : ''}${form.message.trim()}`,
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: encode({
+          'form-name': 'contact',
+          name: form.name.trim(),
+          email: form.email.trim(),
+          subject: form.subject,
+          message: form.message.trim(),
+        }),
       })
       setStatus('success')
       setForm(initialForm)
@@ -71,7 +81,8 @@ export default function ContactForm() {
   const errorField = 'border-red-500/60 focus:border-red-500'
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-5" noValidate>
+    <form onSubmit={handleSubmit} name="contact" data-netlify="true" className="space-y-5" noValidate>
+      <input type="hidden" name="form-name" value="contact" />
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
           <input
