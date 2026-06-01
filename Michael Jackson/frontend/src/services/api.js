@@ -29,10 +29,10 @@ export const eventsService = {
 }
 
 export const blogService = {
-  getAll: () => strapiAPI.get('/api/blog-posts?populate=*&sort=date:desc'),
-  getOne: (id) => strapiAPI.get(`/api/blog-posts/${id}?populate=*`),
+  getAll: () => strapiAPI.get('/api/articles?populate=*&sort=publishedAt:desc'),
+  getOne: (id) => strapiAPI.get(`/api/articles/${id}?populate=*`),
   getByCategory: (cat) =>
-    strapiAPI.get(`/api/blog-posts?filters[category][$eq]=${cat}&populate=*`),
+    strapiAPI.get(`/api/articles?filters[category][name][$eq]=${cat}&populate=*`),
 }
 
 export const contactService = {
@@ -40,7 +40,7 @@ export const contactService = {
 }
 
 export const aboutService = {
-  get: () => strapiAPI.get('/api/about-artist?populate=*'),
+  get: () => strapiAPI.get('/api/about?populate=*'),
 }
 
 export default strapiAPI
