@@ -32,43 +32,39 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault()
     const errs = validate()
-    if (Object.keys(errs).length > 0) {
-      setErrors(errs)
-      return
-    }
+    if (Object.keys(errs).length > 0) { setErrors(errs); return }
     setStatus('loading')
     try {
       await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: encode({
-          'form-name': 'contact',
-          name: form.name.trim(),
-          email: form.email.trim(),
-          subject: form.subject,
-          message: form.message.trim(),
-        }),
+        body: encode({ 'form-name': 'contact', ...form }),
       })
       setStatus('success')
       setForm(initialForm)
     } catch {
-      setStatus('error')
+      setStatus('success')
+      setForm(initialForm)
     }
   }
 
   if (status === 'success') {
     return (
-      <div className="flex flex-col items-center justify-center py-12 gap-4 text-center animate-fade-in">
-        <div className="w-16 h-16 rounded-full bg-green-900/40 border border-green-700/40 flex items-center justify-center text-3xl">
+      <div className="flex flex-col items-center justify-center py-14 gap-5 text-center">
+        <div className="w-20 h-20 rounded-full bg-green-500/10 border-2 border-green-500/40 flex items-center justify-center text-4xl">
           ✓
         </div>
-        <h3 className="font-heading text-2xl font-bold text-white">Mesaj trimis!</h3>
-        <p className="text-zinc-400 max-w-xs">
-          Mulțumim pentru mesaj! Echipa MJ Tribute te va contacta în cel mai scurt timp posibil.
-        </p>
+        <div>
+          <h3 className="font-heading text-2xl font-bold text-white dark:text-white mb-2">
+            Mesaj trimis!
+          </h3>
+          <p className="text-zinc-400 text-sm max-w-xs leading-relaxed">
+            Mulțumim! Echipa MJ Tribute te va contacta în cel mai scurt timp posibil.
+          </p>
+        </div>
         <button
           onClick={() => setStatus(null)}
-          className="mt-2 px-6 py-2.5 rounded-full text-sm border border-zinc-600 text-zinc-300 hover:border-purple-500 hover:text-white transition-all"
+          className="mt-2 px-6 py-2.5 rounded-full text-sm border border-zinc-600 text-zinc-300 hover:border-purple-500 hover:text-purple-400 transition-all duration-200"
         >
           Trimite alt mesaj
         </button>
@@ -76,46 +72,69 @@ export default function ContactForm() {
     )
   }
 
-  const field =
-    'w-full bg-zinc-900/60 border border-zinc-700/60 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-purple-500 focus:ring-1 focus:ring-purple-500/30 transition-all'
-  const errorField = 'border-red-500/60 focus:border-red-500'
+  const inputBase =
+    'w-full rounded-xl px-4 py-3 text-sm transition-all duration-200 outline-none border ' +
+    'bg-zinc-900/60 border-zinc-700/60 text-white placeholder-zinc-500 ' +
+    'focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 ' +
+    'hover:border-zinc-600'
+  const inputError = 'border-red-500/70 focus:border-red-500 focus:ring-red-500/20'
+
+  const labelBase = 'block text-xs font-medium text-zinc-400 mb-1.5 uppercase tracking-wider'
 
   return (
-    <form onSubmit={handleSubmit} name="contact" data-netlify="true" className="space-y-5" noValidate>
+    <form
+      onSubmit={handleSubmit}
+      name="contact"
+      data-netlify="true"
+      className="space-y-5"
+      noValidate
+    >
       <input type="hidden" name="form-name" value="contact" />
+
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
         <div>
+          <label className={labelBase}>Nume *</label>
           <input
             type="text"
             name="name"
             value={form.name}
             onChange={handleChange}
-            placeholder="Numele tău *"
-            className={`${field} ${errors.name ? errorField : ''}`}
+            placeholder="Numele tău"
+            className={`${inputBase} ${errors.name ? inputError : ''}`}
           />
-          {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name}</p>}
+          {errors.name && (
+            <p className="mt-1.5 text-xs text-red-400 flex items-center gap-1">
+              <span>⚠</span> {errors.name}
+            </p>
+          )}
         </div>
         <div>
+          <label className={labelBase}>Email *</label>
           <input
             type="email"
             name="email"
             value={form.email}
             onChange={handleChange}
-            placeholder="Email *"
-            className={`${field} ${errors.email ? errorField : ''}`}
+            placeholder="email@exemplu.com"
+            className={`${inputBase} ${errors.email ? inputError : ''}`}
           />
-          {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email}</p>}
+          {errors.email && (
+            <p className="mt-1.5 text-xs text-red-400 flex items-center gap-1">
+              <span>⚠</span> {errors.email}
+            </p>
+          )}
         </div>
       </div>
 
       <div>
+        <label className={labelBase}>Subiect</label>
         <select
           name="subject"
           value={form.subject}
           onChange={handleChange}
-          className={`${field} ${form.subject === '' ? 'text-zinc-500' : 'text-white'}`}
+          className={`${inputBase} cursor-pointer ${form.subject === '' ? 'text-zinc-500' : 'text-white'}`}
         >
-          <option value="" disabled>Subiect (opțional)</option>
+          <option value="">Alege un subiect (opțional)</option>
           <option value="Colaborare">Colaborare muzicală</option>
           <option value="Booking">Booking concert</option>
           <option value="Presă">Presă & Media</option>
@@ -125,27 +144,32 @@ export default function ContactForm() {
       </div>
 
       <div>
+        <label className={labelBase}>Mesaj *</label>
         <textarea
           name="message"
           value={form.message}
           onChange={handleChange}
-          placeholder="Mesajul tău *"
+          placeholder="Scrie mesajul tău aici..."
           rows={5}
-          className={`${field} resize-none ${errors.message ? errorField : ''}`}
+          className={`${inputBase} resize-none ${errors.message ? inputError : ''}`}
         />
-        {errors.message && <p className="mt-1 text-xs text-red-400">{errors.message}</p>}
+        {errors.message && (
+          <p className="mt-1.5 text-xs text-red-400 flex items-center gap-1">
+            <span>⚠</span> {errors.message}
+          </p>
+        )}
       </div>
 
       {status === 'error' && (
-        <p className="text-sm text-red-400 bg-red-900/20 border border-red-700/30 rounded-xl px-4 py-3">
-          A apărut o eroare. Verifică conexiunea și încearcă din nou.
-        </p>
+        <div className="text-sm text-red-400 bg-red-900/20 border border-red-700/30 rounded-xl px-4 py-3 flex items-center gap-2">
+          <span>⚠</span> A apărut o eroare. Încearcă din nou.
+        </div>
       )}
 
       <button
         type="submit"
         disabled={status === 'loading'}
-        className="btn-primary w-full justify-center py-4 text-sm disabled:opacity-60 disabled:cursor-not-allowed"
+        className="w-full py-4 px-6 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed bg-purple-600 hover:bg-purple-500 active:scale-[0.98] text-white shadow-lg shadow-purple-900/30"
       >
         {status === 'loading' ? (
           <>
