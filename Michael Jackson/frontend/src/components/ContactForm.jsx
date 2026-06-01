@@ -40,12 +40,9 @@ export default function ContactForm() {
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
         body: encode({ 'form-name': 'contact', ...form }),
       })
-      setStatus('success')
-      setForm(initialForm)
-    } catch {
-      setStatus('success')
-      setForm(initialForm)
-    }
+    } catch (_) {}
+    setStatus('success')
+    setForm(initialForm)
   }
 
   if (status === 'success') {
@@ -55,16 +52,16 @@ export default function ContactForm() {
           ✓
         </div>
         <div>
-          <h3 className="font-heading text-2xl font-bold text-white dark:text-white mb-2">
+          <h3 className="font-heading text-2xl font-bold dark:text-white text-zinc-900 mb-2">
             Mesaj trimis!
           </h3>
-          <p className="text-zinc-400 text-sm max-w-xs leading-relaxed">
-            Mulțumim! Echipa MJ Tribute te va contacta în cel mai scurt timp posibil.
+          <p className="text-zinc-500 text-sm max-w-xs leading-relaxed">
+            Mulțumim! Echipa MJ Tribute te va contacta în cel mai scurt timp.
           </p>
         </div>
         <button
           onClick={() => setStatus(null)}
-          className="mt-2 px-6 py-2.5 rounded-full text-sm border border-zinc-600 text-zinc-300 hover:border-purple-500 hover:text-purple-400 transition-all duration-200"
+          className="mt-2 px-6 py-2.5 rounded-full text-sm border border-zinc-400 dark:border-zinc-600 text-zinc-600 dark:text-zinc-300 hover:border-purple-500 hover:text-purple-500 transition-all duration-200"
         >
           Trimite alt mesaj
         </button>
@@ -72,14 +69,18 @@ export default function ContactForm() {
     )
   }
 
-  const inputBase =
-    'w-full rounded-xl px-4 py-3 text-sm transition-all duration-200 outline-none border ' +
-    'bg-zinc-900/60 border-zinc-700/60 text-white placeholder-zinc-500 ' +
-    'focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20 ' +
-    'hover:border-zinc-600'
-  const inputError = 'border-red-500/70 focus:border-red-500 focus:ring-red-500/20'
+  const inputBase = [
+    'w-full rounded-xl px-4 py-3 text-sm transition-all duration-200 outline-none border',
+    'bg-white dark:bg-zinc-900/60',
+    'border-zinc-300 dark:border-zinc-700/60',
+    'text-zinc-900 dark:text-white',
+    'placeholder-zinc-400 dark:placeholder-zinc-500',
+    'focus:border-purple-500 focus:ring-2 focus:ring-purple-500/20',
+    'hover:border-zinc-400 dark:hover:border-zinc-600',
+  ].join(' ')
 
-  const labelBase = 'block text-xs font-medium text-zinc-400 mb-1.5 uppercase tracking-wider'
+  const inputError = 'border-red-400 dark:border-red-500/70 focus:border-red-500 focus:ring-red-500/20'
+  const labelBase = 'block text-xs font-semibold mb-1.5 uppercase tracking-wider text-zinc-500 dark:text-zinc-400'
 
   return (
     <form
@@ -103,8 +104,8 @@ export default function ContactForm() {
             className={`${inputBase} ${errors.name ? inputError : ''}`}
           />
           {errors.name && (
-            <p className="mt-1.5 text-xs text-red-400 flex items-center gap-1">
-              <span>⚠</span> {errors.name}
+            <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
+              ⚠ {errors.name}
             </p>
           )}
         </div>
@@ -119,8 +120,8 @@ export default function ContactForm() {
             className={`${inputBase} ${errors.email ? inputError : ''}`}
           />
           {errors.email && (
-            <p className="mt-1.5 text-xs text-red-400 flex items-center gap-1">
-              <span>⚠</span> {errors.email}
+            <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
+              ⚠ {errors.email}
             </p>
           )}
         </div>
@@ -132,12 +133,12 @@ export default function ContactForm() {
           name="subject"
           value={form.subject}
           onChange={handleChange}
-          className={`${inputBase} cursor-pointer ${form.subject === '' ? 'text-zinc-500' : 'text-white'}`}
+          className={`${inputBase} cursor-pointer`}
         >
           <option value="">Alege un subiect (opțional)</option>
           <option value="Colaborare">Colaborare muzicală</option>
           <option value="Booking">Booking concert</option>
-          <option value="Presă">Presă & Media</option>
+          <option value="Presa">Presă și Media</option>
           <option value="Fan">Mesaj fan</option>
           <option value="Altele">Altele</option>
         </select>
@@ -154,17 +155,11 @@ export default function ContactForm() {
           className={`${inputBase} resize-none ${errors.message ? inputError : ''}`}
         />
         {errors.message && (
-          <p className="mt-1.5 text-xs text-red-400 flex items-center gap-1">
-            <span>⚠</span> {errors.message}
+          <p className="mt-1.5 text-xs text-red-500 flex items-center gap-1">
+            ⚠ {errors.message}
           </p>
         )}
       </div>
-
-      {status === 'error' && (
-        <div className="text-sm text-red-400 bg-red-900/20 border border-red-700/30 rounded-xl px-4 py-3 flex items-center gap-2">
-          <span>⚠</span> A apărut o eroare. Încearcă din nou.
-        </div>
-      )}
 
       <button
         type="submit"
